@@ -17,6 +17,13 @@ pipeline {
   
             }
         }
+
+	stage ("Install eksctl") {
+            steps {
+                sh "curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp" 
+		sh "sudo mv /tmp/eksctl /usr/local/bin"
+            }
+        }
         stage ("Install EKS") {
             steps {
                 sh "eksctl create cluster --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}" 
