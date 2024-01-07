@@ -21,13 +21,13 @@ pipeline {
 	stage ("Install eksctl") {
             steps {
            //     sh "curl --silent --location 'https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz' | tar xz -C /tmp" 
-		sh "curl --silent --location 'https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_\$(uname -s)_amd64.tar.gz' | tar xz -C /tmp"
-		sh "sudo mv /tmp/eksctl /usr/local/bin"
+		bat "curl --silent --location 'https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_\$(uname -s)_amd64.tar.gz' | tar xz -C /tmp"
+		bat "sudo mv /tmp/eksctl /usr/local/bin"
             }
         }
         stage ("Install EKS") {
             steps {
-                sh "eksctl create cluster --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}" 
+                bat "C:\ProgramData\chocolatey\bin\eksctl create cluster --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}" 
             }
         }
   
@@ -36,8 +36,8 @@ pipeline {
             steps {
                 script {
                     // Install ArgoCD in EKS
-		    sh "kubectl create namespace argocd"
-                    sh "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
+		    bat "kubectl create namespace argocd"
+                    bat "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
                 }
             }
         }
@@ -47,11 +47,11 @@ pipeline {
                 script {
                     // Wait for ArgoCD pods to be ready
 
-                    sh "kubectl wait --for=condition=Ready pod -l app.kubernetes.io/name=argocd-server -n argocd --timeout=300s"
+                    bat "kubectl wait --for=condition=Ready pod -l app.kubernetes.io/name=argocd-server -n argocd --timeout=300s"
 
                     // Create or sync the application in ArgoCD
-                    sh "argocd app create $ARGOCD_APP_NAME --repo https://github.com/lily4499/argo-kubernetes.git --path ./ --dest-server https://kubernetes.default.svc --dest-namespace default"
-                    sh "argocd app sync $ARGOCD_APP_NAME"
+                    bat "argocd app create $ARGOCD_APP_NAME --repo https://github.com/lily4499/argo-kubernetes.git --path ./ --dest-server https://kubernetes.default.svc --dest-namespace default"
+                    bat "argocd app sync $ARGOCD_APP_NAME"
                 }
             }
         }
