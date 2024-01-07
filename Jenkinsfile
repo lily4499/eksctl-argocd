@@ -5,7 +5,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('lil_AWS_Access_key_ID')
         AWS_SECRET_ACCESS_KEY = credentials('lil_AWS_Secret_access_key')
         AWS_REGION = "us-east-1"
-        EKS_CLUSTER_NAME = 'my-lil-cluster'
+        EKS_CLUSTER_NAME = 'my-lil-eks'
         KUBECONFIG_PATH = '/var/lib/jenkins/.kube/config'
         ARGOCD_APP_NAME = 'lili-app'
     }
