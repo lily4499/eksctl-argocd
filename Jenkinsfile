@@ -1,4 +1,6 @@
-pipeline {
+\
+
+potpipeline {
     agent any
 
     environment {
@@ -20,7 +22,8 @@ pipeline {
 
         stage ("Install EKS") {
             steps {
-                bat "C:\\ProgramData\\chocolatey\\bin\\eksctl create cluster --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}"
+              //  bat "C:\\ProgramData\\chocolatey\\bin\\eksctl create cluster --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}"
+		bat "eksctl create cluster --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}"
  
             }
         }
