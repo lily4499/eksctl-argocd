@@ -35,6 +35,7 @@ potpipeline {
                     // Install ArgoCD in EKS
 		    bat "kubectl create namespace argocd"
                     bat "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
+		    bat "choco install argocd-cli"
                 }
             }
         }
