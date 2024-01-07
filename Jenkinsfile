@@ -49,9 +49,9 @@ pipeline {
         }
     }
 
-    post {
-        always {
+ //   post {
+   //     always {
             // Cleanup steps if needed
-        }
-    }
+    //    }
+ //   }
 }
